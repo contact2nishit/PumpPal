@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-labelledby="title desc" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title id="title">Gym Habit Builder Logo</title>
+    <desc id="desc">A logo featuring a dumbbell and a habit tracker design combined in a modern and motivational style.</desc>
+    <rect width="200" height="200" fill="#000000"/>
+    
+    <!-- Outer Circular Ring -->
+    <circle cx="100" cy="100" r="95" fill="none" stroke="#FFFAFA" stroke-width="2"/>
+  
+    <!-- Dumbbell Icon -->
+    <rect x="70" y="90" width="60" height="20" fill="#FFFAFA" rx="5"/>
+    <rect x="50" y="75" width="15" height="50" fill="#FFFAFA" rx="3"/>
+    <rect x="135" y="75" width="15" height="50" fill="#FFFAFA" rx="3"/>
+    <rect x="35" y="82" width="10" height="35" fill="#FFFAFA" rx="3"/>
+    <rect x="155" y="82" width="10" height="35" fill="#FFFAFA" rx="3"/>
+  
+  </svg>

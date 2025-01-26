@@ -29,8 +29,8 @@ Port: 5000.
 Action: Allow the connection.
 Save and enable the rule
 
-In Powershell Admin:
-Run ipconfig command and look for inet entry under ethernet0
+In WSL: 
+Run ip addr command and look for inet entry under ethernet0
 
 In Powershell administrator:
 

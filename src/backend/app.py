@@ -5,6 +5,8 @@ from bcrypt import hashpw, gensalt, checkpw
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 import dotenv, os
 import datetime
+from AI import analyze_routine_with_ai, speak_with_polly
+from badge_checks import check_consistency_metrics, check_first_timer, check_early_bird
 
 
 app = Flask(__name__)
@@ -14,6 +16,20 @@ app.config["JWT_SECRET_KEY"] = os.getenv("JWT_KEY")
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = datetime.timedelta(minutes=100000)
 jwt = JWTManager(app)
 
+
+
+def fetch_xp_info(user, cursor):
+    cursor.execute("SELECT xp FROM users WHERE id = %s", (user,))
+    xp = cursor.fetchone()[0]
+    cursor.execute("SELECT level, xp_cutoff FROM levels ORDER BY xp_cutoff ASC")
+    levels = cursor.fetchall()
+    current_level = 0
+    next_cutoff = -1
+    for i in range(len(levels)):
+        if xp >= levels[i][1]:
+            current_level = levels[i][0]
+            next_cutoff = levels[i + 1][1]
+    return xp, current_level, next_cutoff
 
 @app.route("/users", methods=['POST'])
 def add_user():
@@ -56,14 +72,16 @@ def login():
                 id, hashedpw = hashed
                 if checkpw(password.encode('utf-8'), hashedpw.encode('utf-8')):
                     access_token = create_access_token(identity=id)
-                    return jsonify({"token": access_token}), 201
+                    xp, level, next_cutoff = fetch_xp_info(id, curs)
+                    return jsonify({"token": access_token, "xp": xp, "level": level, "nextCutoff": next_cutoff}), 201
                 else:
                     # wrong pw
                     return jsonify({"error": "Invalid Credentials"}), 401
     except Exception as e:
         print(e)
         return jsonify({"error": "something is wrong"}), 500
-    
+
+
 # Returns all templates for a user: dict with each template name as key and a dict containing exercises (string list), sets (list of int), templateID (int), and exerciseIDs (list)
 @app.route("/templates/fetch", methods=['GET'])
 @jwt_required()
@@ -184,14 +202,47 @@ def end_session():
     try:
         with connect() as conn:
             with conn.cursor() as curs:
+                user = get_jwt_identity()
                 req = request.get_json()
                 session_id = req.get("sessionID")
                 if not session_id:
                     return jsonify({"error": "missing session ID"}), 409
                 curs.execute("UPDATE sessions SET end_time = NOW() WHERE session_id = %s", (session_id,))
+                curs.execute("SELECT weight, reps FROM sets WHERE session_id = %s", (session_id,))
+                sets = curs.fetchall()
+                xp_added = sum(weight * reps for weight, reps in sets) / 10
+                curs.execute("SELECT xp FROM users WHERE id = %s", (user,))
+                current_xp = curs.fetchone()[0]
+                new_xp = current_xp + xp_added
+                curs.execute("UPDATE users SET xp = %s WHERE id = %s", (new_xp, user))
                 conn.commit()
-                return jsonify({"message": "ended"}), 200
-    except:
+                curs.execute("SELECT level, xp_cutoff, titles FROM levels ORDER BY xp_cutoff ASC")
+                levels = curs.fetchall()
+                new_level = None
+                next_cutoff = -1
+                new_title = ""
+                # will be internal server error if last level
+                for i in range(len(levels)):
+                    if new_xp >= levels[i][1] and current_xp < levels[i][1]: 
+                        new_level = levels[i][0]
+                        new_title = levels[i][2]
+                        next_cutoff = levels[i + 1][1]
+                        break
+                badge = check_consistency_metrics(curs, user)
+                if not badge:
+                    badge = check_first_timer(curs, user)
+                if not badge:
+                    badge = check_early_bird(curs, user)
+                conn.commit()
+                response = {"message": "ended", "xpAfter": new_xp, "newLevel": -1, "nextCutoff": -1, "newTitle": new_title, "badge": ""}
+                if new_level is not None:
+                    response["newLevel"] = new_level
+                    response["nextCutoff"] = next_cutoff
+                if badge is not None:
+                    response["badge"] = badge
+                return jsonify(response), 201
+    except Exception as e:
+        print(e)
         return jsonify({"error": "something is wrong"}), 500
 
 @app.route("/templates/delete", methods=['DELETE'])
@@ -268,7 +319,8 @@ def add_set():
 @jwt_required()
 def analyze():
     user = get_jwt_identity()
-    return analyze_routine_with_ai(user)
+    speak_with_polly(user)
+    return analyze_routine_with_ai(user), 200
 
 @app.route("/workouts/delete", methods=['DELETE'])
 @jwt_required()

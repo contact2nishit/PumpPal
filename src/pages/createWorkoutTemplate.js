@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, ScrollView, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const CreateWorkoutTemplate = () => {
+const CreateWorkoutTemplate = ({ navigation }) => {
     const [workoutName, setWorkoutName] = useState('');
     const [numExercise, setNumExercise] = useState(0);
     const [exerciseData, setExerciseData] = useState([]);
@@ -176,6 +176,14 @@ const CreateWorkoutTemplate = () => {
                     </View>
                 </View>
             </Modal>
+            <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                            navigation.navigate("BottomNavigator");
+                        }}
+                    >
+                        <Text>home</Text>
+            </TouchableOpacity>
         </ScrollView>
     );
 };

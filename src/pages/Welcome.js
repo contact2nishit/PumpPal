@@ -5,7 +5,7 @@ import { useRoute } from '@react-navigation/native';
 
 const Welcome = ({ navigation }) => {
   const route = useRoute();
-  const { username } = route.params;
+  const { username } = route.params || {};
 
   useEffect(() => {
     // Check if token exists in AsyncStorage and if user is authenticated
@@ -57,7 +57,7 @@ const Welcome = ({ navigation }) => {
 
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => navigation.navigate("HomeScreen", { username: username })}>
+                        onPress={() => navigation.navigate("BottomNavigator", { username: username })}>
                         <Text style={styles.thanks}>No Thanks!</Text>
                     </TouchableOpacity>
                 </View>

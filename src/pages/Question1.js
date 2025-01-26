@@ -10,10 +10,10 @@ const Question1 = ({navigation}) => {
     const [selectedOption, setSelectedOption] = useState('');
     const [error, setError] = useState('');
 
-    const wiggleAnim = useRef(new Animated.Value(0)).current;
-
     const route = useRoute();
     const { username } = route.params;
+
+    const wiggleAnim = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
         Animated.loop(

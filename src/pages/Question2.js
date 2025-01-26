@@ -11,7 +11,7 @@ import { useRoute } from '@react-navigation/native';
 const Question2 = ({navigation}) => {
 
     const [number, onChangeNumber] = useState('');
-    const [unit, setUnit] = useState('feet');
+    const [unit, setUnit] = useState('cm');
     const [error, setError] = useState('');
     
     const wiggleAnim = useRef(new Animated.Value(0)).current;
@@ -102,8 +102,8 @@ const Question2 = ({navigation}) => {
                                         onValueChange={(itemValue) => setUnit(itemValue)}
                                         itemStyle = {styles.pickerItem}
                                     >
-                                        <Picker.Item label = "Feet" value = "feet"/>
-                                        <Picker.Item label = "Inch" value = "inch"/>
+                                        <Picker.Item label = "cm" value = "cm"/>
+                                        <Picker.Item label = "In" value = "in"/>
 
                                     </Picker>
                                 </View>

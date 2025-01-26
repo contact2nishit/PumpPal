@@ -51,6 +51,12 @@ const Login = ({ navigation }) => {
             const res = await response.json();
             if(response.ok) {
                 AsyncStorage.setItem('token', res["token"]);
+                console.log(res);
+                AsyncStorage.setItem('username', username);
+                AsyncStorage.setItem('xp', res["xp"].toString());
+                AsyncStorage.setItem('level', res["level"].toString());
+                AsyncStorage.setItem('nextCutoff', res["nextCutoff"].toString());
+                AsyncStorage.setItem('initXP', res["initXP"].toString());
                 console.log("Login Success: ");
                 navigation.navigate('Welcome', { username: username });
             } else {

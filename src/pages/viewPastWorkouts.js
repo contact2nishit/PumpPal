@@ -42,9 +42,9 @@ const ViewPastWorkouts = ({ route, navigation }) => {
                             <Text style={styles.exerciseName}>{exercise}</Text>
                             {workouts[timestamp].reps[index].map((reps, setIndex) => (
                                 <View key={setIndex} style={styles.setRow}>
-                                    <Text>Set {setIndex + 1}:</Text>
-                                    <Text>Reps: {reps}</Text>
-                                    <Text>Weight: {workouts[timestamp].weights[index][setIndex]} lbs</Text>
+                                    <Text style = {{backgroundColor: 'white'}}>Set {setIndex + 1}:</Text>
+                                    <Text style = {{backgroundColor: 'white'}}>Reps: {reps}</Text>
+                                    <Text style = {{backgroundColor: 'white'}}>Weight: {workouts[timestamp].weights[index][setIndex]} lbs</Text>
                                 </View>
                             ))}
                         </View>
@@ -65,6 +65,7 @@ const ViewPastWorkouts = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         padding: 20,
+        backgroundColor: '#171c17', 
     },
     workoutSection: {
         marginBottom: 20,
@@ -77,13 +78,16 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 10,
+        color:'white',
     },
     exerciseSection: {
         marginBottom: 10,
+        color: 'white'
     },
     exerciseName: {
         fontSize: 14,
         fontWeight: 'bold',
+        color: 'white',
     },
     setRow: {
         flexDirection: 'row',

@@ -1,0 +1,6 @@
+I need a work out split that helps me target my muscles well. GIVE ME ONLY A RESPONSE IN THE FOLLOWING JSON FORMAT:
+{
+"dayNames": [dayNames], "exNames" : [[exNamesDay1], [exNamesDay2]....], "setNum": [[setNumsDay1],[setNumsDay2]....]
+}
+ONLY AND ONLY RETURN ME THE VALID JSON I NEED PLEASE. I DO NOT NEED YOU TO SAY A SINGLE WORD BESIDE THAT
+Here is some info about me:

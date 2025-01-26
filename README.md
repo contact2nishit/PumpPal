@@ -1,5 +1,5 @@
-# PumpPal
-A react-native application that makes going to the gym a lot more fun and interactive!
+exa### Workout Tracker App ###
+This app is designed to help you track your gym progress over time.
 
 ## Development environment setup (Assumes Linux/WSL, steps may differ slightly for MacOS) ##
 
@@ -29,8 +29,8 @@ Port: 5000.
 Action: Allow the connection.
 Save and enable the rule
 
-In WSL: 
-Run ip addr command and look for inet entry under ethernet0
+In Powershell Admin:
+Run ipconfig command and look for inet entry under ethernet0
 
 In Powershell administrator:
 
@@ -43,3 +43,5 @@ flask run --host=0.0.0.0 --port=5000
 In CMD/Frontend:
 Find IPv4 Address UNDER Wireless LAN adapter Wi-Fi:
 Send all requests from frontend to that IP address + port 5000
+
+

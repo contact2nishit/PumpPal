@@ -16,7 +16,11 @@ import Question4 from './Question4';
 import LogSets from './logSets';
 import ViewPastWorkouts from './viewPastWorkouts';
 import BottomNavigator from './BottomNavigator';
-
+import TemplateDetail from './TemplateDetail';
+import Finished from './Finished';
+import GymTime from './GymTime';
+import Loading from './Loading';
+import AI from './AI';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,7 +49,7 @@ const StackNavigator = () => {
             <Stack.Screen name="Login" component={Login}/>
             <Stack.Screen name="Welcome" component = {Welcome}/>
             <Stack.Screen name="BottomNavigator" component={BottomNavigator}/>
-            
+            <Stack.Screen name="Finished" component={Finished}/>
             <Stack.Screen name="HomeScreen" component={HomeScreen}/>
             <Stack.Screen name="Templates" component = {CreateWorkoutTemplate}/>
             <Stack.Screen name="Question2" component={Question2}/>
@@ -54,6 +58,10 @@ const StackNavigator = () => {
             <Stack.Screen name="startWorkout"  component={StartWorkout} />
             <Stack.Screen name="LogSets" component={LogSets} />
             <Stack.Screen name="ViewPastWorkouts" component={ViewPastWorkouts} />
+            <Stack.Screen name="TemplateDetail" component={TemplateDetail}/>
+            <Stack.Screen name="GymTime" component={GymTime}/>
+            <Stack.Screen name="Loading" component={Loading}/>
+            <Stack.Screen name="AI" component={AI}/>
         </Stack.Navigator>
     );
 }

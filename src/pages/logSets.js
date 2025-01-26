@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LogSets = ({ route, navigation }) => {
@@ -15,6 +15,8 @@ const LogSets = ({ route, navigation }) => {
         };
         setSetsData(updatedSetsData);
     };
+
+
     const handleEnd = async () => {
         try {
             const token = await AsyncStorage.getItem('token');
@@ -27,10 +29,20 @@ const LogSets = ({ route, navigation }) => {
                 },
                 body: JSON.stringify({ sessionID })
             });
+
             const res = await response.json();
             if (response.ok) {
                 console.log("Session ended successfully");
-                navigation.navigate('HomeScreen');
+                console.log(`xp ${res["xpAfter"]}`)
+                navigation.navigate('Finished');
+                AsyncStorage.setItem('xp', res["xpAfter"].toString());
+                if(res['newLevel'] != -1) {
+                    AsyncStorage.setItem('level', res["newLevel"].toString());
+                    AsyncStorage.setItem('nextCutoff', res["nextCutoff"].toString());
+                    AsyncStorage.setItem('initXP', res["initXP"].toString());
+                    AsyncStorage.setItem('title', res["newTitle"]);
+                    console.log(`level ${res["newLevel"]} title ${res["newTitle"]}`)
+                }
             } else {
                 setErrors([res["error"]]);
             }
@@ -39,6 +51,12 @@ const LogSets = ({ route, navigation }) => {
             setErrors(["An error occurred while ending the session."]);
         }
     }
+
+    const showAlert = () => {
+        Alert.alert("Successfully submitted");
+        handleEnd();
+    }
+
     const handleSubmitSet = async (exerciseID, setIndex, weight, reps) => {
         try {
             const token = await AsyncStorage.getItem('token');

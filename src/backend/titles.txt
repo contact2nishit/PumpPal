@@ -5,11 +5,13 @@ level - 9 - Gymbro
 level - 12 - Beast
 level - 15 - CHAD
 
-Leg Day Loyalist
-First timer
-Humble Beginner
-Gym is my life
-Early Bird
-Fitness Lover
-No Pain no gain
-1000 lb Club
+Leg Day Loyalist - 6 days w/ at least 2 leg exercises in past month (FOR LATER)
+First timer - first workout done
+Humble Beginner - 20 workouts in past 30 days
+Consistent king - 60 workouts past 90 days 
+I love jim - 120 workouts 180 days
+Gym is my life - 240 workouts in past year
+Early Bird - 5 workouts started before 8 am (ever)
+Fitness Lover - 10 different workout templates
+No Pain no gain - 100 hours of session time
+1000 lb Club - last bench + deadlift + squat = 1000 pounds (FOR LATER)

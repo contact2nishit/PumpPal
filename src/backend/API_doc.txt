@@ -1,0 +1,22 @@
+/templates/add: add one day of your split at a time
+
+{
+    "exnames": ["list", "here"],
+    "sets": [2, 4],
+    "name": "no duplicates",
+}
+
+/templates/fetch: shows all templates
+
+/sets/fetch
+
+{
+    "2025-1-23, 9:45": {
+        "exnames": ["bench", "press"],
+        "weights": [[120, 120], [120, 190]],
+        "reps": ....,
+    }
+    2025-1-23 4:00 {
+        completely 
+    }
+}

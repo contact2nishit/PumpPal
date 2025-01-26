@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const ViewPastWorkouts = ({ route, navigation }) => {
     const [workouts, setWorkouts] = useState({});
     const [errors, setErrors] = useState([]);
-
+    
     useEffect(() => {
         const fetchPastWorkouts = async () => {
             try {
@@ -42,9 +42,9 @@ const ViewPastWorkouts = ({ route, navigation }) => {
                             <Text style={styles.exerciseName}>{exercise}</Text>
                             {workouts[timestamp].reps[index].map((reps, setIndex) => (
                                 <View key={setIndex} style={styles.setRow}>
-                                    <Text style = {{backgroundColor: 'white'}}>Set {setIndex + 1}:</Text>
-                                    <Text style = {{backgroundColor: 'white'}}>Reps: {reps}</Text>
-                                    <Text style = {{backgroundColor: 'white'}}>Weight: {workouts[timestamp].weights[index][setIndex]} lbs</Text>
+                                    <Text style = {{color: 'white'}}>Set {setIndex + 1}:</Text>
+                                    <Text style = {{color: 'white'}}>Reps: {reps}</Text>
+                                    <Text style = {{color: 'white'}}>Weight: {workouts[timestamp].weights[index][setIndex]} lbs</Text>
                                 </View>
                             ))}
                         </View>
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         padding: 10,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: 'red',
         borderRadius: 5,
     },
     timestamp: {

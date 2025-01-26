@@ -85,26 +85,31 @@ const LogSets = ({ route, navigation }) => {
         <ScrollView contentContainerStyle={styles.container}>
             {exerciseNames.map((exerciseName, exerciseIndex) => (
                 <View key={exerciseIndex} style={styles.exerciseSection}>
-                    <Text>{exerciseName}</Text>
+                    <Text style = {styles.name}>{exerciseName}</Text>
                     {setsData[exerciseIndex].map((set, setIndex) => (
                         <View key={setIndex} style={styles.setRow}>
-                            <Text>Set {setIndex + 1}:</Text>
+                            <Text style = {styles.set}>Set {setIndex + 1}:</Text>
                             <TextInput
                                 style={styles.input}
                                 placeholder="Weight"
                                 value={set.weight}
                                 onChangeText={(value) => handleInputChange(exerciseIndex, setIndex, 'weight', value)}
+                                placeholderTextColor='white'
+                                
                             />
                             <TextInput
                                 style={styles.input}
                                 placeholder="Reps"
                                 value={set.reps}
                                 onChangeText={(value) => handleInputChange(exerciseIndex, setIndex, 'reps', value)}
+                                placeholderTextColor='white'
                             />
-                            <Button
-                                title="Submit Set"
+                            <TouchableOpacity
                                 onPress={() => handleSubmitSet(exerciseIDs[exerciseIndex], setIndex, set.weight, set.reps)}
-                            />
+                                style = {styles.submitButton}
+                            >
+                                <Text style = {styles.sub}>Submit Set</Text>
+                            </TouchableOpacity>
                         </View>
                     ))}
                 </View>
@@ -116,8 +121,11 @@ const LogSets = ({ route, navigation }) => {
                     ))}
                 </View>
             )}
-        <TouchableOpacity onPress={() => handleEnd()}>
-            <Text>End workout</Text>
+        <TouchableOpacity 
+            onPress={() => handleEnd()}
+            style={styles.end}
+        >
+            <Text style = {styles.butText}>End workout</Text>
         </TouchableOpacity>
         </ScrollView>
     );
@@ -125,7 +133,47 @@ const LogSets = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
+        flex:1,
         padding: 20,
+        backgroundColor:"#171c17",
+    },
+    set:{
+        color:'white',
+    },
+    sub:{
+        fontFamily:'American Typewriter',
+        color:'white',
+    },
+    submitButton:{
+        position:'relative',
+        backgroundColor:'red',
+        width:100,
+        height:40,
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius:10,
+    },
+    end:{
+        marginTop:20,
+        width:150,
+        height:40,
+        backgroundColor:'red',
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius:10,
+        alignSelf:'center',
+    },
+    butText:{
+        fontSize:18,
+        fontWeight:'bold',
+        fontFamily:'American Typewriter',
+        color:'white',
+    },
+    name:{
+        color:'white',
+        marginBottom:20,
+        fontSize:30,
+        fontFamily:'American Typewriter',
     },
     exerciseSection: {
         marginBottom: 20,
@@ -141,9 +189,12 @@ const styles = StyleSheet.create({
         padding: 10,
         marginHorizontal: 5,
         flex: 1,
+        color:'white',
     },
     errorText: {
         color: 'red',
+        marginTop:-10,
+        position:'relative',
     },
 });
 
